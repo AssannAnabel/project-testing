@@ -21,4 +21,31 @@ describe('ProductsService', () => {
     const product:Product = productService.findById('1');
     expect(product.id).toBe('1');
   });
+
+  it('should create a new product', () => {
+    const newProduct: Product = {
+      id: '8',
+      product_name: 'juego de tubos',
+      description: 'juego de 10 tubos, con diferentes medidas ',
+      price: 9865,
+    };
+    const createdProduct = productService.create(newProduct);
+    expect(createdProduct.id).toBe('8');
+  });
+
+  it('should update an existing product', () => {
+    const updatedProduct: Product = {
+      id: '1',
+      product_name: 'Martillo Actualizado',
+      description: 'Martillo Actualizado',
+      price: 5987,
+    };
+    const result = productService.update('1', updatedProduct);
+    expect(result.product_name).toBe('Martillo Actualizado');
+  });
+
+  it('should delete a product by ID', () => {
+    const deletedProduct = productService.delete('2');
+    expect(deletedProduct.id).toBe('2');
+  });
 });

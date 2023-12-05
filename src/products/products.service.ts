@@ -5,7 +5,7 @@ import { Product } from './entities/product.entity';
 
 @Injectable()
 export class ProductsService {
-  private products: Product[] =[];
+  private products: Product[]=[]
 
   constructor(){
     this.generateProducts();
