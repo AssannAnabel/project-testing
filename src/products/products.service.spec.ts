@@ -24,13 +24,13 @@ describe('ProductsService', () => {
 
   it('should create a new product', () => {
     const newProduct: Product = {
-      id: '8',
+      id: '9',
       product_name: 'juego de tubos',
       description: 'juego de 10 tubos, con diferentes medidas ',
       price: 9865,
     };
     const createdProduct = productService.create(newProduct);
-    expect(createdProduct.id).toBe('8');
+    expect(createdProduct.id).toBe('9');
   });
 
   it('should update an existing product', () => {

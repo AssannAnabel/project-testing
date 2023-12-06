@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProductsController } from './products.controller';
 import { ProductsService } from './products.service';
-import { Product } from './entities/product.entity';
+//import { Product } from './entities/product.entity';
 
 describe('ProductsController', () => {
   let controller: ProductsController;
@@ -17,7 +17,7 @@ describe('ProductsController', () => {
       providers: [ProductsService],
     })
     .overrideProvider(mockProductsService)// saltear nuestro servicio real
-    .useValue(mockedProductsValue) // usamos el servicio fictisio
+    .useValue(mockedProductsValue) 
     .compile();
 
     controller = module.get<ProductsController>(ProductsController);
@@ -25,7 +25,12 @@ describe('ProductsController', () => {
   });
 // en la filmina Mocking aca va la declaracion del test, configuracion del valor que esperamos, mockear el metodo
  
-  it("should return the correct (martillo, products...) according to input (use spyOn)",
+  it('should be defined', () => {
+  expect(controller).toBeDefined();
+});
+
+
+  it("should return the getById (use spyOn)",
    () =>{
     const result={ id: '1', product_name: 'Martillo', description: 'Martillo de carpintero', price: 3987 }
     const productSpy=jest.spyOn(service,"findById");
@@ -34,8 +39,16 @@ describe('ProductsController', () => {
     productSpy.mockRestore();
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
+  it("should return the create new product (use spyOn)",
+  () =>{
+   const newProduct={id:'8',product_name: 'Amoladora', description: 'Amoladora a bateria', price:10456 };
+   const productSpy=jest.spyOn(service,"create").mockReturnValue(newProduct);//spyOn espia el metodo create del servicio
+   const result=controller.createProduct(newProduct)
+   expect(result).toEqual(newProduct);
+   productSpy.mockRestore();
+ });
+
+
+ 
 
 });
