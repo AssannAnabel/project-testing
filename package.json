@@ -68,7 +68,8 @@
     "testEnvironment": "node",
     "coveragePathIgnorePatterns":[
       "/node_modules/",
-      "/*.modules.ts"
+      "/*.module.ts",
+      "/dto/"
     ]
   }
 }

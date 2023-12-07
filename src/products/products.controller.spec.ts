@@ -28,6 +28,18 @@ describe('ProductsController', () => {
   it('should be defined', () => {
   expect(controller).toBeDefined();
 });
+// Agregamos findAll
+
+it("should return all products", () => {
+  const allProducts: Product[] = [
+    { id: '1', product_name: 'Martillo', description: 'Martillo de carpintero', price: 3987 },
+    { id: '2', product_name: 'Destornillador', description: 'Destornillador Phillips', price: 1499 },];
+
+  const productSpy = jest.spyOn(service, 'findAll').mockReturnValue(allProducts);
+  const result = controller.getAllProducts();
+  expect(result).toEqual(allProducts);
+  productSpy.mockRestore();
+});
 
 
   it("should return the getById (use spyOn)",
@@ -35,7 +47,7 @@ describe('ProductsController', () => {
     const result={ id: '1', product_name: 'Martillo', description: 'Martillo de carpintero', price: 3987 }
     const productSpy=jest.spyOn(service,"findById");
     productSpy.mockImplementation(() =>result);
-    expect(controller.getProductById("1")).toBe(result);
+    expect(controller.getProductById("1")).toBe(result)
     productSpy.mockRestore();// para limpiar
   });
 

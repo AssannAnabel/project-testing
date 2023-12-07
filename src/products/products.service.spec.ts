@@ -17,6 +17,17 @@ describe('ProductsService', () => {
     expect(productService).toBeDefined();//validación automática que existe
   });
 
+// agregamos findAll
+ it('should return all products', () => {
+   const allProducts: Product[] = [
+{ id: '1', product_name: 'Martillo', description: 'Martillo de carpintero', price: 3987 },
+{ id: '2', product_name: 'Destornillador', description: 'Destornillador Phillips', price: 1499 }];
+jest.spyOn(productService, 'findAll').mockReturnValue(allProducts);
+const result = productService.findAll();
+expect(result).toEqual(allProducts);
+ });
+
+  
   it('should find a product by ID', () =>{ //validación buscando por id
     const product:Product = productService.findById('1');
     expect(product.id).toBe('1');
