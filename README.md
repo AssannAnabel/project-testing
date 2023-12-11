@@ -18,6 +18,8 @@ Para realizar los test usamos jest.spyOn() para simular el comportamiento de los
 5. Y para tener un analisis detallado de la covertura realizada en los testeos, con estadisticas de cada archivo analizado, con
 > `$ npm run test:cov`
 Se genera una carpeta *(/coverage)* donde se incluye toda la información del testeo realizado.
+
+
 Integrantes (link al perfil de Linkedin):
 > [Anabel Assan](https://www.linkedin.com/in/anabel-assann/)
 > [Fabricio Córdoba](https://www.linkedin.com/in/fabricio-cordoba/)
