@@ -27,12 +27,12 @@ const result = productService.findAll();
 expect(result).toEqual(allProducts);
  });
 
-  
+  // find By ID
   it('should find a product by ID', () =>{ //validación buscando por id
     const product:Product = productService.findById('1');
     expect(product.id).toBe('1');
   });
-
+// Crear nuevo producto
   it('should create a new product', () => {
     const newProduct: Product = {
       id: '9',
@@ -43,7 +43,7 @@ expect(result).toEqual(allProducts);
     const createdProduct = productService.create(newProduct);
     expect(createdProduct.id).toBe('9');
   });
-
+//modificar producto
   it('should update an existing product', () => {
     const updatedProduct: Product = {
       id: '1',
@@ -55,8 +55,27 @@ expect(result).toEqual(allProducts);
     expect(result.product_name).toBe('Martillo Actualizado');
   });
 
+  it('should return product not update',()=>{
+    const updatedProduct: Product = {
+      id: '9',
+      product_name: 'Martillo con id inexistente',
+      description: 'Martillo con id inexistente',
+      price: 5987,
+    };
+    const result = productService.update('9',updatedProduct)
+    expect(result).toBeNull()
+  })
+
+  // eliminar producto
   it('should delete a product by ID', () => {
     const deletedProduct = productService.delete('2');
     expect(deletedProduct.id).toBe('2');
   });
+
+  it('should return null if the product id does not exist', () => {
+    const notExistProductId = '999'; // ID que no existe en el arreglo de productos
+    const result = productService.delete(notExistProductId);
+    expect(result).toBeNull();
+  });
+  
 });

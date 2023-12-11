@@ -6,18 +6,18 @@ import { Product } from './entities/product.entity';
 describe('ProductsController', () => {
   let controller: ProductsController;
   let service:ProductsService;
-  let mockedProductsValue= [{ id: '1', product_name: 'Martillo', description: 'Martillo de carpintero', price: 3987 },];
-  let mockProductsService={
-    products:()=> mockedProductsValue, // es una funcion que nos retorna lo que tiene el mockedProductsValue
-  };
+  // let mockedProductsValue= [{ id: '1', product_name: 'Martillo', description: 'Martillo de carpintero', price: 3987 },];
+  // let mockProductsService={
+  //   products:()=> mockedProductsValue, // es una funcion que nos retorna lo que tiene el mockedProductsValue
+  // };
 
   beforeEach(async () => { //mockeando
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ProductsController],
       providers: [ProductsService],
     })
-    .overrideProvider(mockProductsService)// saltear nuestro servicio real
-    .useValue(mockedProductsValue) 
+    // .overrideProvider(mockProductsService)// saltear nuestro servicio real
+    // .useValue(mockedProductsValue) 
     .compile();
 
     controller = module.get<ProductsController>(ProductsController);
