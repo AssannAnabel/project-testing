@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ProductsService } from './products.service';
 import { Product } from './entities/product.entity';
 
-
 describe('ProductsService', () => {
   let productService: ProductsService;
   beforeEach(async () => {
@@ -12,40 +11,64 @@ describe('ProductsService', () => {
     productService = module.get<ProductsService>(ProductsService);
   });
 
-
   it('should be defined', () => {
-    expect(productService).toBeDefined();//validación automática que existe
+    expect(productService).toBeDefined(); //validación automática que existe
   });
 
   describe('Testing over findAll', () => {
     // agregamos findAll
     it('should return all products', () => {
       const allProducts: Product[] = [
-        { id: '1', product_name: 'Martillo', description: 'Martillo de carpintero', price: 3987 },
-        { id: '2', product_name: 'Destornillador', description: 'Destornillador Phillips', price: 1499 }];
+        {
+          id: '1',
+          product_name: 'Martillo',
+          description: 'Martillo de carpintero',
+          price: 3987,
+        },
+        {
+          id: '2',
+          product_name: 'Destornillador',
+          description: 'Destornillador Phillips',
+          price: 1499,
+        },
+      ];
       jest.spyOn(productService, 'findAll').mockReturnValue(allProducts);
       const result = productService.findAll();
       expect(result).toEqual(allProducts);
     });
-    it('get all products',()=>{
+    it('get all products', () => {
       const mockProduct: Product[] = [
-        { id: '1', product_name: 'Martillo', description: 'Martillo de carpintero', price: 3987 },
-        { id: '2', product_name: 'Destornillador', description: 'Destornillador Phillips', price: 1499 }]
-      const allProducts = productService.findAll()
+        {
+          id: '1',
+          product_name: 'Martillo',
+          description: 'Martillo de carpintero',
+          price: 3987,
+        },
+        {
+          id: '2',
+          product_name: 'Destornillador',
+          description: 'Destornillador Phillips',
+          price: 1499,
+        },
+      ];
+      const allProducts = productService.findAll();
       expect(allProducts.length).toBe(7);
       expect(allProducts.length).toBeGreaterThan(4);
-      jest.spyOn(productService,'findAll').mockImplementationOnce(()=> mockProduct)
-      expect(allProducts).not.toContainEqual(mockProduct)
-    })
-  })
+      jest
+        .spyOn(productService, 'findAll')
+        .mockImplementationOnce(() => mockProduct);
+      expect(allProducts).not.toContainEqual(mockProduct);
+    });
+  });
 
   describe('Testing over findOne', () => {
     // find By ID
-    it('should find a product by ID', () => { //validación buscando por id
+    it('should find a product by ID', () => {
+      //validación buscando por id
       const product: Product = productService.findById('1');
       expect(product.id).toBe('1');
     });
-  })
+  });
 
   describe('Testing over create', () => {
     // Crear nuevo producto
@@ -59,7 +82,7 @@ describe('ProductsService', () => {
       const createdProduct = productService.create(newProduct);
       expect(createdProduct.id).toBe('9');
     });
-  })
+  });
 
   describe('Testing over update', () => {
     //modificar producto
@@ -72,7 +95,7 @@ describe('ProductsService', () => {
       };
       const result = productService.update('1', updatedProduct);
       expect(result.product_name).toBe('Martillo Actualizado');
-    })
+    });
     it('should return product not update', () => {
       const updatedProduct: Product = {
         id: '9',
@@ -80,11 +103,11 @@ describe('ProductsService', () => {
         description: 'Martillo con id inexistente',
         price: 5987,
       };
-      const result = productService.update('9', updatedProduct)
-      expect(result).toBeNull()
-    })
-  })
-  
+      const result = productService.update('9', updatedProduct);
+      expect(result).toBeNull();
+    });
+  });
+
   describe('Testing over delete', () => {
     // eliminar producto
     it('should delete a product by ID', () => {
@@ -96,5 +119,5 @@ describe('ProductsService', () => {
       const result = productService.delete(notExistProductId);
       expect(result).toBeNull();
     });
-  })
+  });
 });
